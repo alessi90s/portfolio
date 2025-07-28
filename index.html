@@ -1,158 +1,251 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portfolio Editing Video - sta vita</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>sta vita — Portfolio Video Editor</title>
+  <meta name="description" content="Portfolio di montaggi video, motion e sound design di sta vita." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    body {
-      margin: 0;
-      font-family: 'Montserrat', sans-serif;
-      background-color: #f4f4f4;
-      color: #333;
+    :root{
+      --bg:#0e0f13;         /* sfondo scuro cinematografico */
+      --panel:#14161c;      /* pannelli */
+      --text:#e7eaee;       /* testo principale */
+      --muted:#9aa3b2;      /* testo secondario */
+      --line:#232734;       /* bordi */
+      --accent:#00f0c8;     /* ciano */
+      --accent-2:#9b6dff;   /* viola */
+      --accent-3:#ff5a7a;   /* rosso/rosa */
+      --radius:20px;
+      --shadow:0 20px 60px rgba(0,0,0,.35);
+      --max:1200px;
     }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased}
+    a{color:var(--text);text-decoration:none}
+    img{max-width:100%;display:block}
+    .wrap{max-width:var(--max);margin-inline:auto;padding:clamp(20px,4vw,48px)}
 
-    header {
-      background-color: #ffffff;
-      padding: 40px 20px;
-      text-align: center;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
+    /* ===== HERO ===== */
+    .hero{position:relative;overflow:hidden;border-radius:calc(var(--radius) + 8px);background:linear-gradient(140deg,#10121a 0%,#121825 40%,#171f30 100%);box-shadow:var(--shadow);isolation:isolate}
+    .hero::before, .hero::after{content:"";position:absolute;inset:auto;filter:blur(60px);opacity:.75;z-index:-1}
+    .hero::before{width:520px;height:520px;background:radial-gradient(circle at 30% 40%,var(--accent),transparent 60%);top:-120px;left:-140px}
+    .hero::after{width:620px;height:620px;background:radial-gradient(circle at 70% 60%,var(--accent-2),transparent 65%);bottom:-180px;right:-160px}
+    .hero-inner{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center;padding:clamp(36px,6vw,72px)}
+    @media (max-width:980px){.hero-inner{grid-template-columns:1fr;gap:28px}}
+    .kicker{display:inline-flex;align-items:center;gap:10px;color:var(--muted);font-size:14px;letter-spacing:.02em}
+    .kicker .dot{width:6px;height:6px;background:var(--accent);border-radius:999px;box-shadow:0 0 0 3px rgba(0,240,200,.15)}
+    h1{margin:10px 0 18px;font-size:clamp(36px,7vw,64px);line-height:1.03;letter-spacing:-.02em}
+    .lead{color:#d0d6df;font-size:clamp(16px,2.4vw,18px);max-width:60ch}
+    .badges{margin:26px 0 32px;display:flex;flex-wrap:wrap;gap:10px}
+    .badge{--b:rgba(255,255,255,.08);display:inline-flex;align-items:center;gap:10px;border-radius:999px;background:linear-gradient(#161a23,#12161f);border:1px solid var(--line);padding:10px 16px;color:#dbe1ea;font-size:14px}
+    .badge svg{width:18px;height:18px}
 
-    header h1 {
-      font-size: 36px;
-      margin: 0;
-      font-weight: 800;
-    }
+    .cta-row{display:flex;flex-wrap:wrap;gap:14px}
+    .btn{display:inline-flex;align-items:center;gap:12px;border-radius:14px;padding:16px 22px;font-weight:600;letter-spacing:.01em;transition:.25s;border:1px solid transparent}
+    .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#0c1017;box-shadow:0 10px 30px rgba(0,240,200,.18)}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(0,240,200,.24)}
+    .btn-ghost{background:#151a23;border-color:var(--line);color:#d6dbe3}
+    .btn-ghost:hover{border-color:#2b3140;transform:translateY(-2px)}
 
-    header p {
-      font-size: 18px;
-      margin: 10px 0 20px;
-    }
+    /* ===== FEATURED ===== */
+    .section{margin-top:80px}
+    .section h2{font-size:clamp(28px,5vw,40px);letter-spacing:-.02em;margin:0 0 24px}
+    .section .sub{color:var(--muted);max-width:70ch;margin-bottom:36px}
 
-    .btn {
-      background-color: #ff4c60;
-      color: #fff;
-      padding: 10px 20px;
-      font-weight: bold;
-      text-decoration: none;
-      border-radius: 8px;
-      display: inline-block;
-      transition: background-color 0.3s;
-    }
+    .featured{display:grid;grid-template-columns:1.15fr .85fr;gap:28px}
+    @media (max-width:1100px){.featured{grid-template-columns:1fr}}
+    .card{background:linear-gradient(180deg,#161a21,#12161d);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+    .frame{position:relative;aspect-ratio:16/9;background:#0b0e13}
+    .play{position:absolute;inset:0;display:grid;place-items:center}
+    .play .circle{width:86px;height:86px;border-radius:999px;background:rgba(0,0,0,.35);backdrop-filter:blur(4px);border:1px solid #2c3342;display:grid;place-items:center;transition:.2s}
+    .play svg{width:30px;height:30px;fill:#fff;filter:drop-shadow(0 6px 14px rgba(0,0,0,.45))}
+    .frame:hover .circle{transform:scale(1.06);background:linear-gradient(90deg,var(--accent-2),var(--accent))}
+    .caption{padding:22px}
+    .caption h3{margin:0 0 8px;font-size:22px}
+    .meta{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:14px}
 
-    .btn:hover {
-      background-color: #e33b4c;
-    }
+    /* ===== GRID WORKS ===== */
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
+    .work{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#121620}
+    .thumb{aspect-ratio:16/9;overflow:hidden}
+    .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .65s cubic-bezier(.2,.6,.1,1)}
+    .work:hover .thumb img{transform:scale(1.06)}
+    .work .wcap{padding:18px}
+    .work .wcap h4{margin:0 0 6px;font-size:18px}
+    .work .wcap p{margin:0;color:var(--muted);font-size:14px}
 
-    .main-video {
-      text-align: center;
-      padding: 40px 20px;
-    }
+    /* ===== PROCESS / ABOUT ===== */
+    .cols{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+    @media (max-width:900px){.cols{grid-template-columns:1fr}}
+    .step{display:flex;gap:18px;border:1px solid var(--line);border-radius:20px;background:#121722;padding:20px}
+    .step .num{flex:0 0 40px;height:40px;border-radius:12px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#0d121a;font-weight:800;display:grid;place-items:center}
+    .step h3{margin:0 0 6px;font-size:18px}
+    .step p{margin:0;color:var(--muted);font-size:15px}
 
-    .main-video img {
-      max-width: 90%;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
+    /* ===== STATS ===== */
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    @media (max-width:720px){.stats{grid-template-columns:1fr}}
+    .stat{border:1px solid var(--line);background:#121722;border-radius:18px;padding:22px;text-align:center}
+    .stat .n{font-size:40px;font-weight:800;letter-spacing:-.02em;background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .stat .l{color:var(--muted);font-size:14px;margin-top:6px}
 
-    .main-video p {
-      font-size: 16px;
-      margin-top: 15px;
-    }
+    /* ===== FOOTER ===== */
+    footer{margin-top:90px;border-top:1px solid var(--line)}
+    .foot{display:grid;place-items:center;padding:36px 20px;color:var(--muted)}
 
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      padding: 40px 20px;
-    }
-
-    .video-card {
-      background-color: #fff;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      transition: transform 0.2s;
-    }
-
-    .video-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .video-card img {
-      width: 100%;
-      display: block;
-    }
-
-    .video-info {
-      padding: 15px;
-    }
-
-    .video-info h3 {
-      margin: 0;
-      font-size: 18px;
-      font-weight: 600;
-    }
-
-    .footer {
-      text-align: center;
-      padding: 30px;
-      font-size: 14px;
-      color: #777;
-    }
+    /* ===== REVEAL ===== */
+    .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s}
+    .reveal.in{opacity:1;transform:none}
   </style>
 </head>
 <body>
+  <div class="wrap">
+    <section class="hero" aria-label="testata portfolio">
+      <div class="hero-inner">
+        <div>
+          <div class="kicker"><span class="dot"></span> Video Editing • Motion • Storytelling</div>
+          <h1>sta vita<br>Video Editor</h1>
+          <p class="lead">Ritmo, tagli puliti, motion titles, sound design e color per raccontare idee che restano. Qui trovi alcuni lavori e un estratto completo degli upload dal mio canale YouTube.</p>
+          <div class="badges" aria-label="competenze">
+            <span class="badge" title="Ritmo e struttura narrativa">+ ritmo & struttura</span>
+            <span class="badge" title="Motion titles e lower thirds">+ motion titles</span>
+            <span class="badge" title="Sound Design">+ sound design</span>
+            <span class="badge" title="Color e LUT">+ color grading</span>
+            <span class="badge" title="Sottotitoli e accessibilità">+ sottotitoli</span>
+          </div>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="https://www.youtube.com/@sta_vita" target="_blank" rel="noopener">Visita il canale</a>
+            <a class="btn btn-ghost" href="#works">Guarda i lavori</a>
+          </div>
+        </div>
+        <div class="card reveal" style="overflow:hidden">
+          <!-- Playlist completa degli upload -->
+          <div class="frame">
+            <iframe width="100%" height="100%" style="position:absolute;inset:0;border:0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen 
+              src="https://www.youtube.com/embed/videoseries?list=UUA1teBuqwloez-n6e2Pz7Ig&rel=0&modestbranding=1"></iframe>
+          </div>
+          <div class="caption">
+            <h3>Showcase • Upload recenti</h3>
+            <div class="meta">
+              <span>Playlist automatica degli upload</span>
+              <span>Canale: @sta_vita</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <header>
-    <h1>PORTFOLIO EDITING VIDEO</h1>
-    <p>Guarda i miei progetti su YouTube</p>
-    <a href="https://youtube.com/@sta_vita" target="_blank" class="btn">Visita il mio canale</a>
-  </header>
+    <section class="section featured" id="featured">
+      <div class="card reveal">
+        <a class="frame" href="https://www.youtube.com/watch?v=0jHelwgPPp8" target="_blank" rel="noopener" aria-label="Apri su YouTube: Pensare fa male">
+          <img src="https://img.youtube.com/vi/0jHelwgPPp8/maxresdefault.jpg" alt="Thumbnail del video 'pensare fa male'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:contrast(1.02) saturate(1.05)">
+          <div class="play"><span class="circle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></div>
+        </a>
+        <div class="caption">
+          <h3>Pensare fa male</h3>
+          <p class="sub">Esperimento su titolazioni forti, pause respirate e layering sonoro per sostenere il testo. Lavoro su timing emotivo e cut-to-beat.</p>
+          <div class="meta"><span>Durata ~9′</span><span>Ruolo: editing, grafiche, mix</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="card reveal" style="margin-bottom:28px">
+          <a class="frame" href="https://www.youtube.com/watch?v=GmgtHbvfJ4U" target="_blank" rel="noopener" aria-label="Apri su YouTube: Onde di ricordi">
+            <img src="https://img.youtube.com/vi/GmgtHbvfJ4U/maxresdefault.jpg" alt="Thumbnail del video 'onde di ricordi'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+            <div class="play"><span class="circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+          </a>
+          <div class="caption">
+            <h3>Onde di ricordi</h3>
+            <p class="sub">Montaggio associativo: cromie calde/fredde, texture pittoriche e suoni ambient per evocare memoria autobiografica.</p>
+            <div class="meta"><span>Durata ~7′</span><span>Editing, color look, foley</span></div>
+          </div>
+        </div>
+        <div class="card reveal">
+          <div class="frame">
+            <img src="https://images.unsplash.com/photo-1551292831-023188e78222?q=80&w=1600&auto=format&fit=crop" alt="Dettaglio timeline di montaggio">
+          </div>
+          <div class="caption">
+            <h3>Approccio</h3>
+            <p class="sub">Parto dal <em>messaggio</em>, poi costruisco ritmo e geometria dei tagli. Uso grafiche essenziali, enfatizzo il respiro del parlato e lascio spazio ai silenzi quando servono.</p>
+            <div class="meta"><span>Ritmo • Story • Color • Sound</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <section class="main-video">
-    <img src="https://img.youtube.com/vi/PUT_YOUTUBE_ID_HERE/maxresdefault.jpg" alt="Tutto sotto controllo" />
-    <p>🎬 Questo è il video in cui ho sperimentato maggiormente con l'editing video: <strong>Tutto sotto controllo</strong></p>
-  </section>
+    <section class="section" id="works">
+      <h2>Altri lavori</h2>
+      <p class="sub">Una selezione di video dal canale. Clicca per aprirli su YouTube.</p>
+      <div class="grid">
+        <a class="work reveal" href="https://www.youtube.com/watch?v=0jHelwgPPp8" target="_blank" rel="noopener">
+          <div class="thumb"><img src="https://img.youtube.com/vi/0jHelwgPPp8/hqdefault.jpg" alt="Pensare fa male thumbnail"></div>
+          <div class="wcap"><h4>Pensare fa male</h4><p>Motion titles, dinamica audio, cut-to-meaning.</p></div>
+        </a>
+        <a class="work reveal" href="https://www.youtube.com/watch?v=GmgtHbvfJ4U" target="_blank" rel="noopener">
+          <div class="thumb"><img src="https://img.youtube.com/vi/GmgtHbvfJ4U/hqdefault.jpg" alt="Onde di ricordi thumbnail"></div>
+          <div class="wcap"><h4>Onde di ricordi</h4><p>Evocativo, cromie e texture.</p></div>
+        </a>
+        <a class="work reveal" href="https://www.youtube.com/@sta_vita/videos" target="_blank" rel="noopener">
+          <div class="thumb"><img src="https://img.youtube.com/vi/0jHelwgPPp8/hqdefault.jpg" alt="Desiderare il controllo"></div>
+          <div class="wcap"><h4>Desiderare il controllo</h4><p>Video saggio • sperimentazione narrativa.</p></div>
+        </a>
+        <a class="work reveal" href="https://www.youtube.com/@sta_vita/videos" target="_blank" rel="noopener">
+          <div class="thumb"><img src="https://img.youtube.com/vi/GmgtHbvfJ4U/hqdefault.jpg" alt="Una profonda meraviglia"></div>
+          <div class="wcap"><h4>Una profonda meraviglia</h4><p>Racconto contemplativo • soundscape.</p></div>
+        </a>
+        <a class="work reveal" href="https://www.youtube.com/@sta_vita/videos" target="_blank" rel="noopener">
+          <div class="thumb"><img src="https://img.youtube.com/vi/0jHelwgPPp8/hqdefault.jpg" alt="Sentirsi soli"></div>
+          <div class="wcap"><h4>Sentirsi soli</h4><p>Uso dei vuoti visivi e pause per aumentare l’impatto.</p></div>
+        </a>
+        <a class="work reveal" href="https://www.youtube.com/@sta_vita/videos" target="_blank" rel="noopener">
+          <div class="thumb"><img src="https://img.youtube.com/vi/GmgtHbvfJ4U/hqdefault.jpg" alt="Un tipo inadeguato"></div>
+          <div class="wcap"><h4>Un tipo inadeguato</h4><p>Tagli rapidi e grafica minimale.</p></div>
+        </a>
+      </div>
+    </section>
 
-  <section class="video-grid">
-    <div class="video-card">
-      <img src="https://img.youtube.com/vi/PUT_YT_ID1_HERE/0.jpg" alt="Dove stai andando" />
-      <div class="video-info">
-        <h3>Dove stai andando</h3>
+    <section class="section cols" id="about">
+      <div>
+        <h2>Processo</h2>
+        <div class="step reveal"><div class="num">1</div><div><h3>Brief & messaggio</h3><p>Allineamento su obiettivo, audience e tono. Definizione hook iniziale e call-to-action.</p></div></div>
+        <div class="step reveal"><div class="num">2</div><div><h3>Story & ritmo</h3><p>Script/outline, marcatura beat emotivi, scelta musica e palette cromatica.</p></div></div>
+        <div class="step reveal"><div class="num">3</div><div><h3>Montaggio & fino</h3><p>Rough cut → fine cut. Motion titles, transizioni sobrie, color e mix finale con limiter.</p></div></div>
       </div>
-    </div>
-    <div class="video-card">
-      <img src="https://img.youtube.com/vi/PUT_YT_ID2_HERE/0.jpg" alt="Onde di ricordi" />
-      <div class="video-info">
-        <h3>Onde di ricordi</h3>
+      <div>
+        <h2>Perché me</h2>
+        <ul class="stats" style="list-style:none;padding:0;margin:0">
+          <li class="stat reveal"><div class="n">✔︎</div><div class="l">Focus sul contenuto, non sugli effetti: le animazioni servono al messaggio.</div></li>
+          <li class="stat reveal"><div class="n">⏱️</div><div class="l">Tempi rapidi: versioni intermedie chiare e feedback cicli brevi.</div></li>
+          <li class="stat reveal"><div class="n">🎧</div><div class="l">Grande cura per audio e pause: il suono guida l’emozione.</div></li>
+        </ul>
       </div>
-    </div>
-    <div class="video-card">
-      <img src="https://img.youtube.com/vi/PUT_YT_ID3_HERE/0.jpg" alt="Pensare al male" />
-      <div class="video-info">
-        <h3>Pensare al male</h3>
-      </div>
-    </div>
-    <div class="video-card">
-      <img src="https://img.youtube.com/vi/PUT_YT_ID4_HERE/0.jpg" alt="La solitudine" />
-      <div class="video-info">
-        <h3>La solitudine</h3>
-      </div>
-    </div>
-    <div class="video-card">
-      <img src="https://img.youtube.com/vi/PUT_YT_ID5_HERE/0.jpg" alt="Trovare ispirazione" />
-      <div class="video-info">
-        <h3>Trovare ispirazione</h3>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <div class="footer">
-    © sta vita – Portfolio Video Editor
+    <section class="section" id="contact">
+      <div class="card reveal" style="text-align:center;padding:40px">
+        <h2>Parliamo del tuo prossimo video</h2>
+        <p class="sub" style="margin-inline:auto">Disponibile per collaborazioni freelance e progetti in team. Mandami due righe con obiettivo, durata indicativa e deadline.</p>
+        <div class="cta-row" style="justify-content:center;margin-top:16px">
+          <a class="btn btn-primary" href="mailto:sta.vita.video+portfolio@gmail.com?subject=Cosmico%20—%20Portfolio%20Video%20Editing&body=Ciao%2C%20ti%20scrivo%20per%20%5Bprogetto%5D...">Scrivimi via mail</a>
+          <a class="btn btn-ghost" href="https://www.youtube.com/@sta_vita" target="_blank" rel="noopener">YouTube @sta_vita</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="foot">© sta vita — Portfolio Video Editor</div>
+    </footer>
   </div>
 
+  <script>
+    // reveal on scroll
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    },{threshold:.2});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  </script>
 </body>
 </html>
